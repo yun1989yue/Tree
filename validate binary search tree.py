@@ -28,3 +28,7 @@ class Solution(object):
             return True
         else:
             return self.helper(minN, root.left, min(root.val, maxN)) and self.helper(max(minN, root.val), root.right, maxN) 
+'''
+M2:
+Get inorder traversal in stack, and judge whether it is increasing 
+'''
