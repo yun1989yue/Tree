@@ -90,9 +90,32 @@ class Solution(object):
         if not root.left and not root.right:
             return [root.val]
         return self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right)
-        
 '''
 m4:
+recursion
+'''
+class Solution(object):
+    def __init__(self):
+        self.res = []
+        
+    def inorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        #base cases are considered in the code
+        self.helper(root)
+        return self.res
+        
+    def helper(self, root):
+        if not root:
+            return
+        self.helper(root.left)
+        self.res.append(root.val)
+        self.helper(root.right)
+
+'''
+m5:
 morri's traversal O(n) time O(1) space
 '''
 class Solution(object):
