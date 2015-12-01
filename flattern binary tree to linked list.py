@@ -22,6 +22,9 @@ The flattened tree should look like:
             \
              6
 '''
+'''
+Method: O(n) time stack O(n) space
+'''
 class Solution(object):
     def flatten(self, root): # notice that the original tree is in preorder, and modified linked list is also in preorder
         """
@@ -48,3 +51,23 @@ class Solution(object):
                 if stack:
                     current.right = stack.pop()
                 current = current.right
+                
+'''
+Method: recursion
+'''
+class Solution(object):
+    def __init__(self):
+        self.prev = None
+        
+    def flatten(self, root):
+        """
+        :type root: TreeNode
+        :rtype: void Do not return anything, modify root in-place instead.
+        """
+        if not root:
+            return None
+        self.flatten(root.right)
+        self.flatten(root.left)
+        root.right = self.prev
+        root.left = None
+        self.prev = root
