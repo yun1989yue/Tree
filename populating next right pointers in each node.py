@@ -41,7 +41,7 @@ class Solution(object):
             return
         currentNodes = Queue.Queue()
         currentNodes.put(root)
-        while currentNodes.qsize() != 0:
+        while currentNodes.qsize() != 0: # can not use while currentNodes, because it is True even there is no elem
             nextNodes = Queue.Queue()
             pre = None
             while currentNodes.qsize() != 0:
@@ -56,9 +56,24 @@ class Solution(object):
             currentNodes = nextNodes
             
 '''
+Method: recursion O(n) time O(logn) space
+'''
+class Solution(object):
+    def connect(self, root):
+        """
+        :type root: TreeLinkNode
+        :rtype: nothing
+        """
+        if not root or not root.left: # need to judge whether it is leaf too
+            return
+        root.left.next = root.right
+        if root.next:
+            root.right.next = root.next.left
+        self.connect(root.left)
+        self.connect(root.right)
+'''
 Method: 3 pointers, O(n) time O(1) space
 '''
-import Queue
 class Solution(object):
     def connect(self, root):
         """
@@ -70,7 +85,7 @@ class Solution(object):
         leftMost = root # start node of each level
         current = root # current node to be explored
         while leftMost.left:
-            pre = None # last right child 
+            pre = None # last right child, also u can use a if condition to connect current.right and current.next.left, but with pre is more clear to understand 
             while current:
                 if pre:
                     pre.next = current.left
@@ -79,3 +94,60 @@ class Solution(object):
                 current = current.next
             leftMost = leftMost.left
             current = leftMost
+'''
+Follow up for problem "Populating Next Right Pointers in Each Node".
+
+What if the given tree could be any binary tree? Would your previous solution still work?
+
+Note:
+
+You may only use constant extra space.
+For example,
+Given the following binary tree,
+         1
+       /  \
+      2    3
+     / \    \
+    4   5    7
+After calling your function, the tree should look like:
+         1 -> NULL
+       /  \
+      2 -> 3 -> NULL
+     / \    \
+    4-> 5 -> 7 -> NULL
+'''
+class Solution(object):
+    def connect(self, root):
+        """
+        :type root: TreeLinkNode
+        :rtype: nothing
+        """
+        if not root:
+            return
+        leftMost = root
+        while leftMost:
+            current = leftMost
+            nextLeftMost = None
+            pre = None
+            while current:
+                if current.left and current.right:
+                    current.left.next = current.right
+                    if pre:
+                        pre.next = current.left
+                    if not nextLeftMost:
+                        nextLeftMost = current.left
+                    pre = current.right
+                elif current.left:
+                    if pre:
+                        pre.next = current.left
+                    if not nextLeftMost:
+                        nextLeftMost = current.left
+                    pre = current.left
+                elif current.right:
+                    if pre:
+                        pre.next = current.right
+                    if not nextLeftMost:
+                        nextLeftMost = current.right
+                    pre = current.right
+                current = current.next
+            leftMost = nextLeftMost
