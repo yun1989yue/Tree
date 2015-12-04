@@ -29,3 +29,23 @@ class Solution(object):
             current = stack.pop()
             current = current.right
         return res
+        
+'''
+Method: recursion
+'''
+class Solution(object):
+    def preorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        self.res = []
+        self.helper(root)
+        return self.res
+    
+    def helper(self, root):
+        if not root:
+            return
+        self.res.append(root.val)
+        self.helper(root.left)
+        self.helper(root.right)
