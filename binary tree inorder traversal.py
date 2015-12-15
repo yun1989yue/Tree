@@ -21,13 +21,14 @@ node
 the stack exhausts or poped node has right node
 *notice that 2) has two braches, need to right node or exhaust, need case study
 '''
+
 class Solution(object):
     def inorderTraversal(self, root):
         """
         :type root: TreeNode
         :rtype: List[int]
         """
-        #boundary cases are considered in the code
+        #base cases are considered in the code
         stack = []
         res = []
         cur = root
@@ -37,21 +38,11 @@ class Solution(object):
                 cur = cur.left
             else:
                 res.append(cur.val)
-                if cur.right:
+                cur = cur.right
+                while not cur and stack: # if cur.right == None, explore node in stack
+                    cur = stack.pop()
+                    res.append(cur.val)
                     cur = cur.right
-                else:
-                    flag = 0
-                    while stack:
-                        cur = stack.pop()
-                        res.append(cur.val)
-                        if cur.right:
-                            cur = cur.right
-                            flag = 1
-                            break
-                        else:
-                            cur = None
-                    if flag == 0:
-                        break
         return res
 '''
 m2:
@@ -77,7 +68,7 @@ class Solution(object):
         
 '''
 m3:
-recurtion
+recurtion1 O(n) time O(logn) space
 '''
 class Solution(object):
     def inorderTraversal(self, root):
@@ -92,7 +83,7 @@ class Solution(object):
         return self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right)
 '''
 m4:
-recursion
+recursion2 O(n) time O(logn) space
 '''
 class Solution(object):
     def __init__(self):
@@ -124,17 +115,22 @@ class Solution(object):
         :type root: TreeNode
         :rtype: List[int]
         """
+        #base cases are considered in the code
         res = []
         cur = root
         while cur:
-            if not cur.left:
+            if cur.left:
+                pre = cur.left
+                while pre.right and pre.right != cur: # find rightmost node of left child in terms of original structure
+                    pre = pre.right
+                if not pre.right: # node has not been explored
+                    pre.right = cur
+                    cur = cur.left
+                else: # node has been explored, recover tree
+                    res.append(cur.val)
+                    pre.right = None
+                    cur = cur.right
+            else: # node doesnt have left child in original structure
                 res.append(cur.val)
                 cur = cur.right
-            else:# if a node has left node, move the node to the rightmost child of its left node
-                pre =cur.left
-                while pre.right:
-                    pre = pre.right
-                pre.right = cur
-                cur = cur.left
-                pre.right.left = None
         return res
