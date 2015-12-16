@@ -21,7 +21,17 @@ class Solution(object):
             return 0
         return max(self.depth(root.left), self.depth(root.right)) + 1
 '''
-Method: DFS O(n) time O(n) space 
+Method: DFS O(n) time O(n) space, similar as inorder
+Consider following case O(n) space required
+    1
+   / \
+  2   3
+     / \
+    4   5
+       / \
+      6   7
+         / \
+        8   9
 '''
 class Solution(object):
     def isBalanced(self, root):
