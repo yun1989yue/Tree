@@ -75,3 +75,34 @@ class Solution(object):
         if not self.explore(root.right):
             return False
         return True
+'''
+M4: Morris O(n) time O(1) space
+'''
+class Solution(object):
+    def isValidBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        pre = None
+        cur = root
+        while cur:
+            if cur.left:
+                rightMost = cur.left
+                while rightMost.right and rightMost.right != cur:
+                    rightMost = rightMost.right
+                if rightMost.right:
+                    if pre and pre.val >= cur.val:
+                        return False
+                    pre = cur
+                    rightMost.right = None
+                    cur = cur.right
+                else:
+                    rightMost.right = cur
+                    cur = cur.left
+            else:
+                if pre and pre.val >= cur.val:
+                    return False
+                pre = cur
+                cur = cur.right
+        return True
