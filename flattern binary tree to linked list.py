@@ -31,29 +31,22 @@ class Solution(object):
         :type root: TreeNode
         :rtype: void Do not return anything, modify root in-place instead.
         """
-        if not root:
-            return
-        current = root
         stack = []
-        while current:
-            if current.left and current.right:
-                stack.append(current.right)
+        current = root
+        while current: # when make cases study, analyze each case(l&r,l,r,not l & not r) rigorously
+            if current.left:
+                if current.right:
+                    stack.append(current.right)
                 current.right = current.left
                 current.left = None
-                current = current.right
-            elif current.left:
-                current.right = current.left
-                current.left = None
-                current = current.right
-            elif current.right:
-                current = current.right
-            else:
+            elif not current.left and not current.right:
                 if stack:
                     current.right = stack.pop()
-                current = current.right
+            current = current.right
                 
 '''
 Method: recursion
+reverse postorder traversal [6,5,4,3,2,1]
 '''
 class Solution(object):
     def __init__(self):
