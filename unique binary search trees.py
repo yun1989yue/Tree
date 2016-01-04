@@ -14,9 +14,10 @@ Given n = 3, there are a total of 5 unique BST's.
 Method:
 D.P. O(n^2) time O(n) space
 Basic idea: 
-1) assume we want to generate trees by indorder traversal
-2) each interval choose i from 1 to n as val of root
-3) left subtree contains i-1 nodes, right subtree contains n-i nodes 
+1) subtree of BST is still BST 
+2) for root with val i, there are i-1 nodes at left subtree and n - i nodes at right subtree
+3) for n nodes BST, numTrees[n] = sum(numTrees[i-1]*numTrees[n-i]), i from 1 to n
+* notice that numTrees[0] = 1 should be used for latter cases
 '''
 class Solution(object):
     def numTrees(self, n):
