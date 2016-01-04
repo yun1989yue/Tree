@@ -10,6 +10,9 @@ Given binary tree {1,#,2,3},
    3
 return [1,2,3].
 '''
+'''
+Queue: O(n) time O(n) space
+'''
 class Solution(object):
     def preorderTraversal(self, root):
         """
@@ -49,3 +52,31 @@ class Solution(object):
         self.res.append(root.val)
         self.helper(root.left)
         self.helper(root.right)
+
+'''
+Morri's O(n) time O(1) space
+'''
+class Solution(object):
+    def preorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        res = []
+        cur = root
+        while cur:
+            if cur.left:
+                pre = cur.left
+                while pre.right and pre.right != cur:
+                    pre = pre.right
+                if not pre.right:
+                    res.append(cur.val)
+                    pre.right = cur
+                    cur = cur.left
+                else:
+                    pre.right = None
+                    cur = cur.right
+            else: # node has no left child, it will only be explored once
+                res.append(cur.val)
+                cur = cur.right
+        return res
