@@ -21,7 +21,7 @@ class Solution(object):
             return 0
         return max(self.depth(root.left), self.depth(root.right)) + 1
 '''
-Method: DFS O(n) time O(n) space, similar as inorder
+Method: DFS O(n) time O(n) space, similar as postorder
 Consider following case O(n) space required
     1
    / \
