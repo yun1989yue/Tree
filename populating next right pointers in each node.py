@@ -56,7 +56,7 @@ class Solution(object):
             currentNodes = nextNodes
             
 '''
-Method: recursion O(n) time O(logn) space
+Method: preorder O(n) time O(logn) space (perfect tree, logn levels)
 '''
 class Solution(object):
     def connect(self, root):
@@ -83,8 +83,8 @@ class Solution(object):
         if not root:
             return
         leftMost = root # start node of each level
-        current = root # current node to be explored
         while leftMost.left:
+            current = leftMost # current node to be explored
             pre = None # last right child, also u can use a if condition to connect current.right and current.next.left, but with pre is more clear to understand 
             while current:
                 if pre:
@@ -93,7 +93,7 @@ class Solution(object):
                 pre = current.right
                 current = current.next
             leftMost = leftMost.left
-            current = leftMost
+            
 '''
 Follow up for problem "Populating Next Right Pointers in Each Node".
 
@@ -104,17 +104,17 @@ Note:
 You may only use constant extra space.
 For example,
 Given the following binary tree,
-         1
-       /  \
-      2    3
-     / \    \
-    4   5    7
+        1
+       / \
+      2   3
+     / \   \
+    4   5   7
 After calling your function, the tree should look like:
-         1 -> NULL
-       /  \
-      2 -> 3 -> NULL
-     / \    \
-    4-> 5 -> 7 -> NULL
+        1 -> NULL
+       / \
+      2-> 3 -> NULL
+     / \   \
+    4-> 5-> 7 -> NULL
 '''
 class Solution(object):
     def connect(self, root):
