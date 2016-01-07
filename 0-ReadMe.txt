@@ -36,15 +36,17 @@ Binary Search Tree(BST) == inorder traversal
                 cur = cur.right
   Levelorder Traversals:
   preorder/inorder/queue
-  Validate Binary Search Tree，recover BST，
+  Validate Binary Search Tree，recover BST，balanced binary tree
   
 2. Methods:
   1) stack/queue
+  flatten binary tree
   2) recursion
   Unique Binary Search Trees ll, same tree, symmetric tree, Maximum Depth of Binary Tree
   3) Dynamic Programming
   Unique Binary Search Trees
-  4) 
+  4) DFS, BFS
+  balanced binary tree
 
 3. depth()
   1) depth()
